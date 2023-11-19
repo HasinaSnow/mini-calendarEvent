@@ -1,0 +1,12 @@
+<div (click)="emitEventId()" style="--event-color: {{ event.category.color }}; border-color: var(--event-color);" class="my-2 border-1 p-2 w-full cursor-pointer flex gap-1 flex-column border-round">
+    <div class="head flex justify-content-between">
+        <span style="color: var(--event-color)" class="flex gap-1 align-items-center"><i class="pi pi-calendar"></i> {{ event.date | date: 'dd, MMM YYYY' }} ({{ event.type }})</span>
+        <span class="flex gap-1 align-items-center"><i class="pi {{ event.confirm ? eventLabels.confirmedLabel.icon + ' text-green-500' : eventLabels.notConfirmedLabel.icon + ' text-orange-500' }} "></i></span>
+    </div>
+    <span class="flex gap-1 align-items-center"><i class="{{ eventLabels.customerLabel.icon }}"></i> {{ event.customer }}</span>
+    <div class="flex justify-content-between align-items-center">
+        <span class="flex gap-1 align-items-center"><i class="{{ eventLabels.placeLabel.icon }}"></i> {{ event.place }}</span>
+        <span class="flex gap-1 align-items-center"><i class="{{ eventLabels.categLabel.icon }}"></i> {{ event.category.name }}</span>
+    </div>
+</div>
+

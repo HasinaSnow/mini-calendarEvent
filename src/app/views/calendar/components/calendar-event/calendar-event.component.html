@@ -1,0 +1,84 @@
+<!-- calendar -->
+<div class="calendar">
+    <!-- show -->
+    <div 
+        [ngStyle]="{ display: this.toggleDisplay ? 'flex' : 'none' }"
+        class="show">
+        <!-- header -->
+        <div class="header">
+            <div class="icon">
+                <span class="prev" (click)="onPreviousMonth()" title="preview month">
+                    < </span>
+            </div>
+            <div class="current-date" (click)="onToggleDisplay()" title="Click to change">
+                <span>{{ monthNameSelected() }}, {{ yearSelected() }}</span>
+            </div>
+            <div class="icon">
+                <span class="next" (click)="onNextMonth()" title="next month">></span>
+            </div>
+        </div>
+
+        <!-- weeks -->
+        <div class="grid weeks">
+            <li [ngClass]="{'week-color': (i===0 || i===6)}" *ngFor="let day of daysName; let i=index;">{{ day }}</li>
+        </div>
+
+        <!-- days swiper-->
+        <div class="swipper">
+            <swiper-container
+            class="swiper"
+            [loop]="true"
+            autoHeight="true"
+            (slidenexttransitionstart)="onNextMonth()"
+            (slideprevtransitionstart)="onPreviousMonth()">
+                <swiper-slide *ngFor="let item of twoSwipper">
+                    <ul class="days">
+                        <li 
+                            class="inactive"
+                            *ngFor="let firstDaysInactive of firstDaysInactives()">{{ firstDaysInactive }}</li>
+                        <li
+                            *ngFor="let dayNumber of daysActives()"
+                            (click)="onSelectDate(dayNumber)"
+                            style="--clr-gradient-style-event: {{ clrEventsOfThisDate(dayNumber) }};"
+                            [ngClass]="{'today': isToday(dayNumber), 'day-event': isEvent(dayNumber), 'active': isDateSelected(dayNumber)}">
+                            {{ dayNumber }}
+                            <span *ngIf="isEvent(dayNumber) && eventsOfThisDate(dayNumber).length > 1">{{ eventsOfThisDate(dayNumber).length }}</span>
+                        </li>
+                        <li class="inactive" *ngFor="let lastDaysInactive of lastDaysInactives()">{{ lastDaysInactive }}</li>
+                    </ul>
+                </swiper-slide>
+            </swiper-container>
+        </div>
+
+    </div>
+
+    <!-- hide -->
+    <div 
+        [ngStyle]="{display: this.toggleDisplay ? 'none' : 'flex'}"
+        class="hide">
+        <!-- header -->
+        <div class="header">
+            <div class="icon" (click)="onPreviousYear()" title="preview year">
+                <span class="prev">-</span>
+            </div>
+            <div class="current-year"><span>{{ yearSelected() }}</span></div>
+            <div class="icon"(click)="onNextYear()" title="next year">
+                <span class="next">+</span>
+            </div>
+        </div>
+        <!-- list months -->
+        <div class="months">
+            <div (click)="onSelectMonth(i)" class="{{ (monthSelected() === i) ? 'active' : '' }}"
+                *ngFor="let m of monthsName; let i=index;">{{ this.m }}</div>
+        </div>
+
+        <!-- buttons -->
+        <div class="btns">
+            <div id="today" (click)="onToday()">
+                <!-- <ion-icon name="today-outline"></ion-icon> -->
+                Today
+            </div>
+            <div id="ok" (click)="onToggleDisplay()">Select month</div>
+        </div>
+    </div>
+</div>

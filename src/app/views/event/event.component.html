@@ -1,0 +1,52 @@
+<div class="event-page w-full h-full relative">
+    <p-toast [style]="{ width: '90vw' }" position="top-center" key="tc"></p-toast>
+    <section style="height: fit-content; position: fixed; left: .25rem; right: .25rem; z-index: 2;" class="p-card mt-2 p-3 flex justify-content-start flex-column gap-3">
+        <div class="date flex align-items-center">
+            <i class="pi pi-calendar text-3xl mr-2"></i>
+            <span class="text-xl font-bold">{{ fullDateSelected() | date: 'dd, MMM YYYY' }}</span>
+        </div>
+        <button style="min-height: 53px;" pButton class="bg-pink-500 border-none gap-2 flex justify-content-center align-items-center">
+            <i class="pi pi-calendar-plus font-bold text-2xl"></i>
+            <span class="text-xl font-bold">Create Event</span>
+        </button>
+        <span class="text-xl font-bold">
+            Event list
+            <p-divider styleClass="m-0 p-1"></p-divider>
+        </span>
+    </section>
+    <section style="position: absolute; top: 0; bottom: 0; margin-top: 190px;" class="p-3 w-full overflow-y-auto">
+        <app-event-card (eventClicked)="onEventClicked($event)" [event]="event" *ngFor="let event of eventsCardSelected()"></app-event-card>
+        <div *ngIf="eventsCardSelected().length == 0" class="no-event w-full h-full flex flex-column justify-content-center align-items-center">
+            <i class="pi pi-exclamation-triangle text-yellow-500 text-3xl"></i>
+            <span class="text-lg font-bold">No Event for this Date</span>
+        </div>
+    </section>
+    <!-- <p-button styleClass="absolute bottom-0 right-0 m-3 bg-pink-500" icon="pi pi-calendar text-3xl font-bold" [rounded]="true"></p-button> -->
+    <button (click)="showCalendarDialog()" style="border-radius: 50%;" class="p-button border-none cursor-pointer absolute bottom-0 right-0 m-3 p-3 bg-pink-500">
+        <i class="pi pi-calendar text-3xl "></i>
+    </button>
+</div>
+
+<!-- modals -->
+<p-dialog [modal]="true" [position]="'bottom'" [showHeader]="false" [(visible)]="isVisibleEventOptionDialog" [style]="{ width: '95%' }" contentStyleClass="p-2 m-0">
+    <p-menu styleClass="w-full flex justify-content-center p-2 m-0" [model]="eventOptions"></p-menu>
+</p-dialog>
+
+<p-dialog [modal]="true" [draggable]="false" [showHeader]="false" [(visible)]="isVisibleCalendarDialog" [style]="{ width: '95vw', height: '75vh' }" contentStyleClass="p-0 m-0" >
+    <app-calendar-event (onclickDate)="closeCalendarDialog()" [events]="eventsMonthCalendar" ></app-calendar-event>
+</p-dialog>
+
+<p-confirmDialog #cd [closable]="false" [style]="{ width: '90vw' }" styleClass="p-0" >
+    <ng-template pTemplate="message" styleClass="text-green-500">
+        <div class="w-full flex flex-column justify-content-center align-items-center gap-2">
+            <i class="pi pi-exclamation-triangle text-pink-900 text-3xl"></i>
+            <p class="m-0">Are you sure to delete this event?</p>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer" >
+        <div class="w-full flex justify-content-end gap-2">
+            <button type="button" pButton icon="pi pi-times" size="small" label="No" (click)="cd.reject()"></button>
+            <button class="bg-pink-500" type="button" pButton icon="pi pi-check" size="small" label="Yes, i confirm" (click)="cd.accept()"></button>
+        </div>
+    </ng-template>
+</p-confirmDialog>
