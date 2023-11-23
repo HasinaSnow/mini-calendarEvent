@@ -1,5 +1,5 @@
-import { Component, OnInit, WritableSignal, inject } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet, TitleStrategy } from '@angular/router';
+import { Component, OnInit, Signal, WritableSignal, inject } from '@angular/core';
+import { ActivatedRoute, Data, NavigationEnd, Router, RouterOutlet, TitleStrategy } from '@angular/router';
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
 import { register } from 'swiper/element/bundle';
@@ -10,6 +10,10 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { AppService } from './shared/services/app.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { IDataUrl } from './shared/interfaces/data-url.interface';
+import { Observable } from 'rxjs';
+import { Store } from '@ngxs/store';
 
 register();
 
@@ -20,7 +24,6 @@ register();
     RouterOutlet,
     CommonModule,
     PanelModule,
-    CardModule,
     ToolbarModule,
     ButtonModule,
     SidebarModule,
@@ -30,6 +33,9 @@ register();
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+
+  private store = inject(Store)
+  private route: ActivatedRoute = inject(ActivatedRoute)
   sidebarVisible: boolean = false;
   items: MenuItem[] | undefined = [
     { label: 'Calendar', icon: 'pi pi-fw pi-calendar', url: 'calendar' },
@@ -38,7 +44,10 @@ export class AppComponent implements OnInit {
     { label: 'Settings', icon: 'pi pi-fw pi-cog', url: 'settings' },
   ];
 
+  titlePage: Signal<string> = toSignal(this.store.select(store => store.global.titlePage), { initialValue: '' })
+
   ngOnInit(): void {
+
   }
 
 }

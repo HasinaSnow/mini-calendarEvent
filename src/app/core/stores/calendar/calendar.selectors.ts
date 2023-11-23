@@ -2,18 +2,20 @@ import { PropertySelectors, createPropertySelectors, createSelector } from "@ngx
 import { CalendarState, CalendarStateModel } from "./calendar.state";
 import { IEvent } from "../../models/event.model";
 import { EventsFilter } from "src/app/shared/helpers/events-filter.helper";
+import { EventState, EventStateModel } from "../event/event.state";
 
 export class CalendarSelectors {
 
     // all property values of CalendarState
-    static slices: PropertySelectors<CalendarStateModel> = createPropertySelectors<CalendarStateModel>(CalendarState)
+    static calendarSlices: PropertySelectors<CalendarStateModel> = createPropertySelectors<CalendarStateModel>(CalendarState)
+    static eventSlices: PropertySelectors<EventStateModel> = createPropertySelectors<EventStateModel>(EventState)
 
     static getEventsMonthCalendar() {
         return createSelector(
             [
-                CalendarSelectors.slices.events, 
-                CalendarSelectors.slices.monthSelected,
-                CalendarSelectors.slices.yearSelected
+                CalendarSelectors.eventSlices.allEvents,
+                CalendarSelectors.calendarSlices.monthSelected,
+                CalendarSelectors.calendarSlices.yearSelected
             ],
             (events, month, year) => {
                 const e: IEvent[] = new EventsFilter(events).byYear(year).byMonth(month).buildFilter()
@@ -25,10 +27,10 @@ export class CalendarSelectors {
     static getEventSelectedCard() {
         return createSelector(
             [
-                CalendarSelectors.slices.events,
-                CalendarSelectors.slices.dateSelected,
-                CalendarSelectors.slices.monthSelected,
-                CalendarSelectors.slices.yearSelected
+                CalendarSelectors.eventSlices.allEvents,
+                CalendarSelectors.calendarSlices.dateSelected,
+                CalendarSelectors.calendarSlices.monthSelected,
+                CalendarSelectors.calendarSlices.yearSelected
             ],
             (events, date, month, year) => {
                 const e: IEvent[] = new EventsFilter(events).byDate(date).byMonth(month).byYear(year).buildFilter()
@@ -47,7 +49,7 @@ export class CalendarSelectors {
 
     static getEventById(id: number) {
         return createSelector(
-            [CalendarSelectors.slices.events], 
+            [CalendarSelectors.eventSlices.allEvents], 
             (events) => events.find(event => event.id == id)
         )
     }
@@ -55,8 +57,8 @@ export class CalendarSelectors {
     static getEventsCardSelected() {
         return createSelector(
             [
-                CalendarSelectors.slices.events,
-                CalendarSelectors.slices.fullDateSelected
+                CalendarSelectors.eventSlices.allEvents,
+                CalendarSelectors.calendarSlices.fullDateSelected
             ],
             (events, fullDateSelected) => {
                 const e: IEvent[] = new EventsFilter(events).byDate(fullDateSelected.getDate()).byMonth(fullDateSelected.getMonth()).byYear(fullDateSelected.getFullYear()).buildFilter()

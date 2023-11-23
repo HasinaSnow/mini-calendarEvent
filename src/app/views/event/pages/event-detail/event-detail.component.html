@@ -1,87 +1,86 @@
-<div class="relative w-full h-full">
-    <div style="top: 0; bottom: 0;" class="event-details overflow-y-auto absolute p-2 text-lg flex justify-content-around gap-2 flex-wrap">
-        <!-- date -->
-        <div style="max-width: 380px;" class="date font-bold w-full p-card p-3">
-            <div class="p-card-header text-300 text-xl flex justify-content-between align-items-center">
-                <div class="label flex align-items-center">
-                    <i class="{{ eventLabels.dateLabel.icon }} mr-2 text-xl"></i>
-                    <span class="text">{{ eventLabels.dateLabel.text }} :</span>
-                </div>
-                <div class="update">
-                    <i class="pi pi-pencil cursor-pointer"></i>
-                </div>
-            </div>
-            <div class="ml-2 m-0 p-1 flex justify-content-between gap-2">
-                <span  class="date text text-xl">{{ eventDetails()?.date | date: 'EE, dd MMM YYYY' }}</span>
-                <span  class="date text text-sm flex flex-wrap align-items-center gap-2">
-                    <i class="{{ eventDetails()?.confirm ? eventLabels.confirmedLabel.icon + ' text-green-500' : eventLabels.notConfirmedLabel.icon + ' text-orange-500' }}"></i>
-                    <span class="{{ eventDetails()?.confirm ? 'text-green-500' : 'text-orange-500' }}">{{ eventDetails()?.confirm ? eventLabels.confirmedLabel.text : eventLabels.notConfirmedLabel.text }} </span>
-                </span>
-            </div>
-            <div class="p-card-footer ml-2 m-0 pt-1 font-normal">
-                <span class="text-300">Created at :</span> 
-                {{ eventDetails()?.createdAt| date: 'dd, MMM YYYY' }}
-            </div>
+<div style="height: 547px;" class="grid m-auto md:h-auto overflow-y-auto text-lg w-full">
+  <!-- date -->
+  <div class="col-12 md:col-6">
+    <div class="font-bold p-card p-3">
+      <div class="p-card-header text-300 text-xl flex justify-content-between align-items-center">
+        <div class="label flex align-items-center">
+          <i class="{{ eventLabels.dateLabel.icon }} mr-2 text-xl"></i>
+          <span class="text">{{ eventLabels.dateLabel.text }} :</span>
         </div>
-        <!-- place -->
-        <div style="max-width: 380px;" class="date font-bold w-full p-card p-3">
-            <div class="p-card-header text-300 text-xl flex justify-content-between align-items-center">
-                <div class="label flex align-items-center">
-                    <i class="{{ eventLabels.placeLabel.icon }} mr-2 text-xl"></i>
-                    <span class="text">{{ eventLabels.placeLabel.text }} :</span>
-                </div>
-                <div class="update">
-                    <i class="pi pi-pencil cursor-pointer"></i>
-                </div>
-            </div>
-            <div class="ml-2 m-0 p-1">
-                <span  class="date text text-2xl">{{ eventDetails()?.place }}</span>
-            </div>
-        </div>
-        <!-- category -->
-        <div style="max-width: 380px;" class="date font-bold w-full p-card p-3">
-            <div class="p-card-header text-300 text-xl flex justify-content-between align-items-center">
-                <div class="label flex align-items-center">
-                    <i class="{{ eventLabels.categLabel.icon }} mr-2 text-lg"></i>
-                    <span class="text">{{ eventLabels.categLabel.text }} :</span>
-                </div>
-                <div class="update">
-                    <i class="pi pi-pencil cursor-pointer"></i>
-                </div>
-            </div>
-            <div class="ml-2 m-0 p-1">
-                <span style="--categ-color: {{ eventDetails()?.category?.color }}; color: var(--categ-color)"  class="date text-2xl">{{ eventDetails()?.category?.name }}</span>
-            </div>
-        </div>
-        <!-- customer -->
-        <div style="max-width: 380px;" class="date font-bold w-full p-card p-3">
-            <div class="p-card-header text-300 text-xl flex justify-content-between align-items-center">
-                <div class="label flex align-items-center">
-                    <i class="{{ eventLabels.customerLabel.icon }} mr-2 text-xl"></i>
-                    <span class="text">{{ eventLabels.customerLabel.text }} :</span>
-                </div>
-                <div class="update">
-                    <i class="pi pi-pencil cursor-pointer"></i>
-                </div>
-            </div>
-            <div class="ml-2 m-0 p-1">
-                <span  class="date text text-2xl">{{ eventDetails()?.customer }}</span>
-            </div>
-        </div>
-        <!-- infos -->
-        <div style="max-width: 380px;" class="date font-bold w-full p-card p-3">
-            <div class="p-card-header text-300 text-xl flex justify-content-between align-items-center">
-                <div class="label flex align-items-center">
-                    <i class="{{ eventLabels.infosLabel.icon }} mr-2 text-xl"></i>
-                    <span class="text">{{ eventLabels.infosLabel.text }} :</span>
-                </div>
-                <div class="update">
-                    <i class="pi pi-pencil cursor-pointer"></i>
-                </div>
-            </div>
-            <div class="ml-2 m-0 p-1">
-                <span  class="date text text-lg">{{ eventDetails()?.infos }}</span>
-            </div>
-        </div>
+      </div>
+      <div class="ml-2 m-0 p-1 flex justify-content-between gap-2">
+        <span class="date text text-xl">{{ eventDetails()?.date | date : "EE, dd MMM YYYY" }}</span>
+        <span class="date text text-sm flex flex-wrap align-items-center gap-2">
+          <i class="{{ eventDetails()?.confirm ? eventLabels.confirmedLabel.icon + ' text-green-500': eventLabels.notConfirmedLabel.icon + ' text-orange-500' }}"></i>
+          <span class="{{ eventDetails()?.confirm ? 'text-green-500' : 'text-orange-500' }}">{{ eventDetails()?.confirm ? eventLabels.confirmedLabel.text : eventLabels.notConfirmedLabel.text }}</span>
+        </span>
+      </div>
+      <div class="p-card-footer ml-2 m-0 pt-1 font-normal">
+        <span class="text-300">Created at :</span>
+        {{ eventDetails()?.createdAt | date : "dd, MMM YYYY" }}
+      </div>
     </div>
+  </div>
+
+  <!-- place -->
+  <div class="col-12 md:col-6">
+    <div class="font-bold p-card p-3">
+      <div class="p-card-header text-300 text-xl flex justify-content-between align-items-center">
+        <div class="label flex align-items-center">
+          <i class="{{ eventLabels.placeLabel.icon }} mr-2 text-xl"></i>
+          <span class="text">{{ eventLabels.placeLabel.text }} :</span>
+        </div>
+      </div>
+      <div class="ml-2 m-0 p-1">
+        <span class="date text text-2xl">{{ eventDetails()?.place }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- category -->
+  <div class="col-12 md:col-6">
+    <div class="font-bold p-card p-3">
+      <div class="p-card-header text-300 text-xl flex justify-content-between align-items-center">
+        <div class="label flex align-items-center">
+          <i class="{{ eventLabels.categLabel.icon }} mr-2 text-lg"></i>
+          <span class="text">{{ eventLabels.categLabel.text }} :</span>
+        </div>
+      </div>
+      <div class="ml-2 m-0 p-1">
+        <span style="--categ-color: {{ eventDetails()?.category?.color }}; color: var(--categ-color)" class="date text-2xl">{{ eventDetails()?.category?.name }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- customer -->
+  <div class="col-12 md:col-6">
+    <div class="font-bold p-card p-3">
+      <div
+        class="p-card-header text-300 text-xl flex justify-content-between align-items-center"
+      >
+        <div class="label flex align-items-center">
+          <i class="{{ eventLabels.customerLabel.icon }} mr-2 text-xl"></i>
+          <span class="text">{{ eventLabels.customerLabel.text }} :</span>
+        </div>
+      </div>
+      <div class="ml-2 m-0 p-1">
+        <span class="date text text-2xl">{{ eventDetails()?.customer }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- infos -->
+  <div class="col-12 md:col-6">
+    <div class="date font-bold p-card p-3">
+      <div class="p-card-header text-300 text-xl flex justify-content-between align-items-center">
+        <div class="label flex align-items-center">
+          <i class="{{ eventLabels.infosLabel.icon }} mr-2 text-xl"></i>
+          <span class="text">{{ eventLabels.infosLabel.text }} :</span>
+        </div>
+      </div>
+      <div class="ml-2 m-0 p-1">
+        <span class="date text text-lg">{{ eventDetails()?.infos }}</span>
+      </div>
+    </div>
+  </div>
 </div>

@@ -2,7 +2,7 @@ import { ILabel } from "./label.model"
 
 export interface IEvent {
     id: number,
-    date: string,
+    date: Date,
     place: string,
     category: IEventCategory,
     customer: string,
@@ -10,6 +10,12 @@ export interface IEvent {
     confirm: boolean,
     infos: string,
     createdAt: Date
+}
+
+export interface IConfirm {
+    key: string,
+    label: string,
+    value: boolean
 }
 
 export interface IEventOption {
@@ -21,7 +27,7 @@ export type TEvent_type = 'Day'|'Night'
 
 export interface IEventCard {
     id: number,
-    date: string,
+    date: Date,
     place: string,
     category: IEventCategory,
     customer: string,
@@ -48,6 +54,10 @@ export interface IEventCategory {
 
 export interface IEventCalendar {
     id: number,
-    date: string,
+    date: Date,
     color: string
+}
+
+export interface IEventBuildParam {
+    categName?: 'Mariage'|'Baptême',
 }

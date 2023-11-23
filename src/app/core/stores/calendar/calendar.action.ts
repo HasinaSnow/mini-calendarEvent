@@ -1,16 +1,3 @@
-import { IEvent } from "../../models/event.model"
-
-// action to get all events in the source 
-export class RetrievAllEvents {
-    static readonly type: string = '[Calendar Page] Retrieve events'
-}
-
-// action to update events state
-export class EventsRetrieved {
-    static readonly type: string = '[Event Api] Events retrieved'
-
-    constructor(public events: IEvent[]) {}
-}
 
 export class MonthToIncremented {
     static readonly type: string = '[Calendar Page] Month to incremented'

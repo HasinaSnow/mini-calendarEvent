@@ -1,12 +1,9 @@
-import { Injectable, inject } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Action, State, StateContext } from "@ngxs/store";
-import { IEvent, IEventCalendar } from "../../models/event.model";
-import { DateSelected, DateToSelected, DaySelected, EventsRetrieved,MonthSelected,MonthToDecremented, MonthToIncremented, MonthToSelected, ResetonToday, RetrievAllEvents, YearSelected, YearToDecremented, YearToIncremented, YearToSelected } from "./calendar.action";
-import { EventGateway } from "../../ports/event.gateway";
-import { tap } from "rxjs";
+import {  IEventCalendar } from "../../models/event.model";
+import { DateToSelected, MonthToDecremented, MonthToIncremented, MonthToSelected, ResetonToday, YearToDecremented, YearToIncremented, YearToSelected } from "./calendar.action";
 
 export interface CalendarStateModel {
-    events: IEvent[],
     EventsCalendarMonth: IEventCalendar[],
     fullDateSelected: Date,
     yearSelected: number,
@@ -18,7 +15,6 @@ export interface CalendarStateModel {
 @State<CalendarStateModel>({
     name: 'calendar',
     defaults: {
-        events: [],
         EventsCalendarMonth: [],
         fullDateSelected: new Date(),
         yearSelected: new Date().getFullYear(),
@@ -29,22 +25,6 @@ export interface CalendarStateModel {
 })
 @Injectable()
 export class CalendarState {
-    private eventGateway = inject(EventGateway)
-
-    @Action(RetrievAllEvents)
-    retrievAllEvents(ctx: StateContext<CalendarStateModel>) {
-        return this.eventGateway.retrieveAll().pipe(
-            tap(events => {
-                console.log(events)
-                return ctx.dispatch(new EventsRetrieved(events))})
-        )
-    }
-
-    @Action(EventsRetrieved)
-    allEventsRetrieved(ctx: StateContext<CalendarStateModel>, { events }: EventsRetrieved) {
-        // update the state
-        return ctx.patchState({events: events})
-    }
 
     @Action(ResetonToday)
     resetOnToday(ctx: StateContext<CalendarStateModel>) {

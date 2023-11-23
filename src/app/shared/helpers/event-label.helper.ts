@@ -1,5 +1,5 @@
 import { IEventLabels } from "src/app/core/models/event.model";
-import { CATEG_EVENT_LABEL, CONFIRMED_EVENT_LABEL, CUSTOMER_EVENT_LABEL, DATE_EVENT_LABEL, INFOS_EVENT_LABEL, NOT_CONFIRMED_EVENT_LABEL, PLACE_EVENT_LABEL, TYPE_EVENT_LABEL } from "src/assets/labels";
+import { CATEG_EVENT_LABEL, CONFIRMED_EVENT_LABEL, CUSTOMER_EVENT_LABEL, DATE_EVENT_LABEL, INFOS_EVENT_LABEL, NOT_CONFIRMED_EVENT_LABEL, PLACE_EVENT_LABEL, TYPE_EVENT_LABEL } from "src/app/shared/values/default-labels.values";
 
 export class EventLabelHelper {
     static getEventLabels(): IEventLabels {

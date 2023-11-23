@@ -23,4 +23,16 @@ export class InMemoryEventGateway extends EventGateway {
       return of(event == undefined ? null : event)
     }
 
+    addNew(event: IEvent): Observable<IEvent> {
+      const lastEventid = this.events.pop()
+      if(lastEventid)
+        event.id = lastEventid.id + 1
+      else
+        event.id = 1
+      console.log(event)
+      const NewEvents: IEvent[] = [ ...this.events, event ]
+      this.events = NewEvents
+      return of(event)
+    }
+
 }

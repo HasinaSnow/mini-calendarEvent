@@ -11,10 +11,12 @@ import { DialogModule } from 'primeng/dialog';
 import { CalendarEventComponent } from '../calendar/components/calendar-event/calendar-event.component';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { Observable } from 'rxjs';
+import { IDataUrl } from 'src/app/shared/interfaces/data-url.interface';
 
 @Component({
   selector: 'app-event',
@@ -37,8 +39,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 export class EventComponent implements OnInit {
   private store = inject(Store);
   private route = inject(Router)
+  private activatedRoute = inject(ActivatedRoute)
   private msgToast = inject(MessageService)
   private confirmationService = inject(ConfirmationService)
+  
   isVisibleCalendarDialog: boolean = false
   isVisibleEventOptionDialog: boolean = false
   eventIdClicked: number = 0
@@ -65,6 +69,12 @@ export class EventComponent implements OnInit {
   eventsCardSelected: Signal<IEventCard[]> = toSignal(this.store.select(CalendarSelectors.getEventsCardSelected()), { initialValue: [] as IEventCard[] });
 
   ngOnInit(): void {
+  }
+
+  onCreate() {
+    // on uilise le store
+    console.log('navigate on event-new')
+    this.route.navigate(['event/new'])
   }
 
   comandOnEventDetail() {

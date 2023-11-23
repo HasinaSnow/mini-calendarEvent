@@ -1,14 +1,10 @@
 import { ICategory } from "../category.model"
-import { IEvent, IEventCategory, TEvent_type } from "../event.model"
+import { IEvent, IEventBuildParam, IEventCategory, TEvent_type } from "../event.model"
 import { StubCategoryBuilder } from "./category.builder"
-
-interface IEventBuildParam {
-    categName?: 'Mariage'|'Baptême',
-}
 
 export class EventBuilder {
     protected id: number
-    protected date: string
+    protected date: Date
     protected place: string
     protected customer: string
     protected category: IEventCategory
@@ -22,7 +18,7 @@ export class EventBuilder {
         return this
     }
 
-    withDate(date: string): EventBuilder {
+    withDate(date: Date): EventBuilder {
         this.date = date
         return this
     }
@@ -44,6 +40,11 @@ export class EventBuilder {
 
     withType(type: TEvent_type): EventBuilder {
         this.type = type
+        return this
+    }
+
+    withConfirmation(confirmation: boolean): EventBuilder {
+        this.confirm = confirmation
         return this
     }
 
@@ -84,7 +85,7 @@ export class EventBuilder {
 
 export class StubEventBuilder extends EventBuilder {
     protected override id: number = 0
-    protected override date: string = '11/11/2023'
+    protected override date: Date = new Date()
     protected override customer: string = 'Customer'
     protected override place: string = 'The palace'
     protected override type: TEvent_type = 'Day'

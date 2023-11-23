@@ -14,7 +14,7 @@
       </div>
       <div class="p-toolbar-group-end">
         <div class="p-card border-none mr-2">
-          <span class="p-card-title border-none">Calendar Event</span>
+          <span style="font-family: var(--font-family);" class="p-card-title border-none">{{ titlePage() }}</span>
         </div>
       </div>
     </p-toolbar>
@@ -27,7 +27,7 @@
 
 <p-sidebar
   [(visible)]="sidebarVisible"
-  styleClass="w-9"
+  styleClass="w-9 md:w-4"
   header="Calendar Event"
 >
   <ng-template pTemplate="header">

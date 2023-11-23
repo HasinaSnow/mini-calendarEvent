@@ -1,25 +1,40 @@
 import { Action, State, StateContext } from "@ngxs/store";
 import { IEvent } from "../../models/event.model";
 import { Injectable, inject } from "@angular/core";
-import { EventNotRetrieved, NotFoundRedirection, OneEventRetrieved, RetrievOneEvent } from "./event.action";
+import { AddNewEvent, EventNotAdded, EventNotRetrieved, EventsRetrieved, NewEventAdded, OneEventRetrieved, RetrievAllEvents, RetrievOneEvent } from "./event.action";
 import { EventGateway } from "../../ports/event.gateway";
 import { tap } from "rxjs";
-import { Router } from "@angular/router";
+import { NotFoundRedirection } from "../global/global.action";
 
 export interface EventStateModel {
-    onEvent: IEvent|null,
+    allEvents: IEvent[],    onEvent: IEvent|null,
 }
 
 @State<EventStateModel>({
     name: 'event',
     defaults: {
+        allEvents: [],
         onEvent: null
     }
 })
 @Injectable()
 export class EventState {
     private eventGateway = inject(EventGateway)
-    private router = inject(Router)
+
+    @Action(RetrievAllEvents)
+    retrievAllEvents(ctx: StateContext<EventStateModel>) {
+        return this.eventGateway.retrieveAll().pipe(
+            tap(events => {
+                console.log(events)
+                return ctx.dispatch(new EventsRetrieved(events))})
+        )
+    }
+
+    @Action(EventsRetrieved)
+    allEventsRetrieved(ctx: StateContext<EventStateModel>, { events }: EventsRetrieved) {
+        // update the state
+        return ctx.patchState({ allEvents: events })
+    }
 
     @Action(RetrievOneEvent)
     retrieveOneEvent(ctx: StateContext<EventStateModel>, { idEvent } : RetrievOneEvent) {
@@ -42,9 +57,26 @@ export class EventState {
         return ctx.dispatch(new NotFoundRedirection())
     }
 
-    @Action(NotFoundRedirection)
-    notFoundRedirection(ctx: StateContext<EventStateModel>) {
-        console.log('event not found')
-        return this.router.navigate(['/**'])
+    @Action(AddNewEvent)
+    addNewEvent(ctx: StateContext<EventStateModel>, { event } : AddNewEvent) {
+        this.eventGateway.addNew(event).pipe(
+            tap(event => {
+                if(event) return ctx.dispatch(new NewEventAdded(event))
+                return ctx.dispatch(new EventNotAdded())
+            })
+        )
+    }
+
+    @Action(NewEventAdded)
+    newEventAdded(ctx: StateContext<EventStateModel>, { event } : NewEventAdded) {
+        const events = ctx.getState().allEvents
+        const newEvents = [ ...events, event]
+        console.log('new event added', newEvents)
+        ctx.patchState({ allEvents: newEvents })
+    }
+
+    @Action(EventNotAdded)
+    eventNotAdded() {
+        console.log('event not added')
     }
 }
