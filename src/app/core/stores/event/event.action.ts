@@ -32,6 +32,16 @@ export class NewEventAdded {
     constructor(public event: IEvent) {}
 }
 
+export class EditEvent {
+    static readonly type: string = '[Event Api] Edit event'
+    constructor(public event: IEvent) {}
+}
+
+export class EventEdited {
+    static readonly type: string = '[Event Api] Event edited'
+    constructor(public events: IEvent[]) {}
+}
+
 export class EventNotAdded {
     static readonly type: string = '[Event Api] One event not added'
 }

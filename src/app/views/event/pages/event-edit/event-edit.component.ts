@@ -1,62 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CalendarModule } from 'primeng/calendar';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { ButtonModule } from 'primeng/button';
-import { IConfirm, IEventCategory } from 'src/app/core/models/event.model';
+import { IEvent, IEventInitial } from 'src/app/core/models/event.model';
+import { Store } from '@ngxs/store';
+import { ActivatedRoute } from '@angular/router';
+import { EditEvent, RetrievOneEvent } from 'src/app/core/stores/event/event.action';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { EventFormComponent } from '../../components/event-form/event-form.component';
 
 @Component({
   selector: 'app-event-edit',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CalendarModule,
-    RadioButtonModule,
-    DropdownModule,
-    InputTextModule,
-    InputTextareaModule,
-    ButtonModule
+    EventFormComponent
   ],
   templateUrl: './event-edit.component.html',
   styleUrls: ['./event-edit.component.scss'],
 })
 export class EventEditComponent implements OnInit {
-  confirmations: IConfirm[] = [
-    { label: 'Confirmed', value: true, key: '#1' },
-    { label: 'Pending', value: false, key: '#2' },
-  ];
+  private store: Store = inject(Store)
+  private route: ActivatedRoute = inject(ActivatedRoute)
 
-  categories: IEventCategory[] = [
-    {
-      id: 1,
-      name: 'Mariage',
-      color: 'blue',
-    },
-    {
-      id: 2,
-      name: 'Fiancaille',
-      color: 'green',
-    },
-  ];
-
-  form: FormGroup = new FormGroup({
-    date: new FormControl<Date|null>(null, [ Validators.required]),
-    confirmed: new FormControl<IConfirm|null>(null, [ Validators.required ]),
-    category: new FormControl<IEventCategory|null>(null, [ Validators.required ]),
-    place: new FormControl<string|null>('', [ Validators.required, Validators.min(3), Validators.max(40) ]),
-    customer: new FormControl<string|null>('', [ Validators.required, Validators.min(3), Validators.max(40) ])
-  });
+  initialValues: IEventInitial 
 
   ngOnInit() {
-    // if edition = type: Date
-    //  { template: DateTemplate, }
+    // get the id in url
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      this.store.dispatch(new RetrievOneEvent(id))
+    })
+    this.store.select(store => store.event.onEvent).subscribe(event => this.initialValues = event)
   }
 
-  onSubmit() {}
+  onSubmit(event: IEvent) {
+    console.log('form valid')
+    this.store.dispatch(new EditEvent(event))
+  }
+
+  onReset() {
+    console.log('form reset')
+  }
 }

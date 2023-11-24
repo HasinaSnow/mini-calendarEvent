@@ -1,13 +1,14 @@
 import { Action, State, StateContext } from "@ngxs/store";
 import { IEvent } from "../../models/event.model";
 import { Injectable, inject } from "@angular/core";
-import { AddNewEvent, EventNotAdded, EventNotRetrieved, EventsRetrieved, NewEventAdded, OneEventRetrieved, RetrievAllEvents, RetrievOneEvent } from "./event.action";
+import { AddNewEvent, EditEvent, EventEdited, EventNotAdded, EventNotRetrieved, EventsRetrieved, NewEventAdded, OneEventRetrieved, RetrievAllEvents, RetrievOneEvent } from "./event.action";
 import { EventGateway } from "../../ports/event.gateway";
 import { tap } from "rxjs";
 import { NotFoundRedirection } from "../global/global.action";
 
 export interface EventStateModel {
-    allEvents: IEvent[],    onEvent: IEvent|null,
+    allEvents: IEvent[],   
+    onEvent: IEvent|null,
 }
 
 @State<EventStateModel>({
@@ -71,12 +72,28 @@ export class EventState {
     newEventAdded(ctx: StateContext<EventStateModel>, { event } : NewEventAdded) {
         const events = ctx.getState().allEvents
         const newEvents = [ ...events, event]
-        console.log('new event added', newEvents)
+        console.log('new event state added', newEvents)
         ctx.patchState({ allEvents: newEvents })
     }
 
     @Action(EventNotAdded)
     eventNotAdded() {
         console.log('event not added')
+    }
+
+    @Action(EditEvent)
+    editEvent(ctx: StateContext<EventStateModel>, { event } : EditEvent) {
+        this.eventGateway.edit(event).pipe(
+            tap(events => {
+                if(events) return ctx.dispatch(new EventEdited(events))
+                return ctx.dispatch(new EventNotAdded())
+            })
+        )
+    }
+
+    @Action(EventEdited)
+    eventEdited(ctx: StateContext<EventStateModel>, { events } : EventEdited) {
+        console.log('event state edited')
+        ctx.patchState({ allEvents: events })
     }
 }

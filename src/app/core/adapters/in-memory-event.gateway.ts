@@ -35,4 +35,16 @@ export class InMemoryEventGateway extends EventGateway {
       return of(event)
     }
 
+    override edit(updatedEvent: IEvent): Observable<IEvent[]|null>{
+      console.log(updatedEvent.id)
+      const e = this.events.find(event => event.id == updatedEvent.id)
+      if(!e) {
+        console.log('event updated not retrieved')
+        return of(null)
+      } else {
+        this.events = this.events.map(event => event.id == updatedEvent.id ? updatedEvent : event)
+        return of(this.events)
+      }
+    }
+
 }

@@ -12,7 +12,17 @@ export interface IEvent {
     createdAt: Date
 }
 
-export interface IConfirm {
+export interface IEventInitial {
+    id: number,
+    date: null|Date,
+    category: null|IEventCategory,
+    place: string|null,
+    customer: string|null,
+    confirm: boolean|null,
+    infos: string|null
+  }
+
+export interface IEventConfirm {
     key: string,
     label: string,
     value: boolean

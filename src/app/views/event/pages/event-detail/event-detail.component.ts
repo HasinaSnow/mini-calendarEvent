@@ -18,14 +18,13 @@ import { RetrievOneEvent } from 'src/app/core/stores/event/event.action';
 export class EventDetailComponent implements OnInit {
   private store: Store = inject(Store)
   private route: ActivatedRoute = inject(ActivatedRoute)
-  id: number
   eventDetails: Signal<IEvent| undefined> = toSignal(this.store.select(store => store.event.onEvent))
   eventLabels: IEventLabels = EventLabelHelper.getEventLabels()
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.store.dispatch(new RetrievOneEvent(this.id))
+      const id = params['id'];
+      this.store.dispatch(new RetrievOneEvent(id))
     });
   }
 

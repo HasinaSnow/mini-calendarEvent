@@ -39,7 +39,6 @@ import { IDataUrl } from 'src/app/shared/interfaces/data-url.interface';
 export class EventComponent implements OnInit {
   private store = inject(Store);
   private route = inject(Router)
-  private activatedRoute = inject(ActivatedRoute)
   private msgToast = inject(MessageService)
   private confirmationService = inject(ConfirmationService)
   
