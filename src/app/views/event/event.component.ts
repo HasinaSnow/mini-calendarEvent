@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal, inject } from '@angular/core';
+import { Component, OnInit, Signal, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
@@ -14,8 +14,9 @@ import { MenuModule } from 'primeng/menu';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DeleteEvent } from 'src/app/core/stores/event/event.action';
+import { DATA_DIALOG_CONFIRM_DELETE_EVENT } from 'src/app/shared/values/default-global.values';
+import { OpenDialogConfirmation, RejectDialogConfirmation } from 'src/app/core/stores/global/global.action';
 
 @Component({
   selector: 'app-event',
@@ -29,7 +30,6 @@ import { DeleteEvent } from 'src/app/core/stores/event/event.action';
     DialogModule,
     MenuModule,
     ToastModule,
-    ConfirmDialogModule
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './event.component.html',
@@ -38,8 +38,7 @@ import { DeleteEvent } from 'src/app/core/stores/event/event.action';
 export class EventComponent implements OnInit {
   private store = inject(Store);
   private route = inject(Router)
-  private confirmationService = inject(ConfirmationService)
-  
+
   isVisibleCalendarDialog: boolean = false
   isVisibleEventOptionDialog: boolean = false
   eventIdClicked: number = 0
@@ -60,6 +59,12 @@ export class EventComponent implements OnInit {
       command: () => this.comandOnEventDelete()
     },
   ];
+
+  dialogConfirmationAccepted: Signal<boolean> = toSignal(this.store.select(store => store.global.dialogConfirmationAccepted))
+  AcceptDialogConfirmEffect = effect(() => {
+    console.log('dialog confirm accepted change: ', this.dialogConfirmationAccepted());
+    this.manageDialogConfirm()
+  }, { allowSignalWrites: true });
 
   fullDateSelected: Signal<Date> = toSignal(this.store.select(state => state.calendar.fullDateSelected))
   eventsMonthCalendar: Signal<IEventCalendar[]> = toSignal(this.store.select(CalendarSelectors.getEventsMonthCalendar()), { initialValue: [] as IEventCalendar[]})
@@ -84,26 +89,7 @@ export class EventComponent implements OnInit {
 
   comandOnEventDelete() {
     this.closeEventOptionsDialog()
-    // this.store.dispatch(new confirmaTionDialog({}))
-    this.store.dispatch(new DeleteEvent(this.eventIdClicked))
-    // this.store.dispatch(new ConfirmationDialog({}))
-      // console.log('confirm true')
-      // this.store.dispatch(new DeleteEvent(this.eventIdClicked))
-  }
-
-  private confirmation(): boolean {
-    let confirmed: boolean = true
-    this.confirmationService.confirm({
-      accept: () => { 
-        console.log('delete confirmed') 
-        confirmed = true
-      },
-      reject: () => {
-        console.log('delete not confirmed')
-        confirmed = false
-      }
-    });
-    return confirmed
+    this.store.dispatch(new OpenDialogConfirmation(DATA_DIALOG_CONFIRM_DELETE_EVENT))
   }
 
   onEventClicked(eventId: number) {
@@ -125,6 +111,14 @@ export class EventComponent implements OnInit {
 
   closeCalendarDialog() {
     this.isVisibleCalendarDialog = false
+  }
+
+  private manageDialogConfirm() {
+    if(this.dialogConfirmationAccepted()) {
+      console.log('delete Event')
+      this.store.dispatch(new DeleteEvent(this.eventIdClicked)) // call action
+      this.store.dispatch(new RejectDialogConfirmation()) // disable
+    }
   }
 
 }

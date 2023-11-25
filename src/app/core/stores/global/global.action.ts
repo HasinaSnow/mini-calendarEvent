@@ -1,3 +1,4 @@
+import { IDataDialogConfirm } from "src/app/shared/interfaces/data-dialog-confirm.interface"
 import { IInfosToast } from "src/app/shared/interfaces/info-toast.interface"
 
 export class SetTitlePage {
@@ -21,4 +22,22 @@ export class EnableToast {
 
 export class DisableToast {
     static readonly type: string = '[All Page] disable toast'
+}
+
+export class AcceptDialogConfirmation {
+    static readonly type: string = '[All Page] accept didalog confirmation'
+}
+
+export class RejectDialogConfirmation {
+    static readonly type: string = '[All Page] reject didalog confirmation'
+}
+
+export class OpenDialogConfirmation {
+    static readonly type: string = '[All Page] open didalog confirmation'
+    constructor(public dataDialog: IDataDialogConfirm) {}
+}
+
+export class CloseDialogConfirmation {
+    static readonly type: string = '[All Page] close didalog confirmation'
+    constructor() {}
 }
