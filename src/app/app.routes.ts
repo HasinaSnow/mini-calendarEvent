@@ -12,8 +12,17 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'event',
+        redirectTo: 'calendar',
         pathMatch: 'full'
+      },
+      {
+        path: 'calendar',
+        title: 'Calendar',
+        resolve: { 
+          getAllEvents : () => inject(Store).dispatch(new RetrievAllEvents()),
+          setTitlePage : () => inject(Store).dispatch(new SetTitlePage('Calendar Event'))
+        },
+        loadComponent: () => import('./views/calendar/calendar.component').then(m => m.CalendarComponent),
       },
       {
         path: 'event',
@@ -23,7 +32,7 @@ export const routes: Routes = [
             path: '',
             data: { title: 'Event' } as IDataUrl,
             resolve: { 
-              getAllEvents : () => inject(Store).dispatch(new RetrievAllEvents()) ,
+              getAllEvents : () => inject(Store).dispatch(new RetrievAllEvents()),
               getAllCategs : () => inject(Store).dispatch(new RetrieveAllCategs()),
               setTitlePage : () => inject(Store).dispatch(new SetTitlePage('Event'))
             },
@@ -54,14 +63,6 @@ export const routes: Routes = [
             loadComponent: () => import('./views/event/pages/event-edit/event-edit.component').then(m => m.EventEditComponent)
           }
         ]
-      },
-      {
-        path: 'calendar',
-        title: 'Calendar',
-        resolve: { 
-          setTitlePage : () => inject(Store).dispatch(new SetTitlePage('Calendar Event'))
-        },
-        loadComponent: () => import('./views/calendar/calendar.component').then(m => m.CalendarComponent),
       }
     ]
   },

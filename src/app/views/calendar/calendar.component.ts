@@ -6,6 +6,7 @@ import { IEventCalendar, IEventCard } from 'src/app/core/models/event.model';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { Store } from '@ngxs/store';
 import { CalendarSelectors } from 'src/app/core/stores/calendar/calendar.selectors';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -16,6 +17,7 @@ import { CalendarSelectors } from 'src/app/core/stores/calendar/calendar.selecto
 })
 export class CalendarComponent implements OnInit {
   private store: Store = inject(Store)
+  private router: Router = inject(Router)
 
   eventsMonthCalendar: Signal<IEventCalendar[]> = toSignal(this.store.select(CalendarSelectors.getEventsMonthCalendar()), { initialValue: [] as IEventCalendar[]})
   eventsCard: Signal<IEventCard[]> = toSignal(this.store.select(CalendarSelectors.getEventSelectedCard()), { initialValue: [] as IEventCard[] })
@@ -24,6 +26,10 @@ export class CalendarComponent implements OnInit {
   dateSelected: Signal<number> = toSignal(this.store.select(state => state.calendar.dateSelected))
 
   ngOnInit(): void {
+  }
+
+  onClickDate() {
+    this.router.navigate(['/event'])
   }
 
 }
