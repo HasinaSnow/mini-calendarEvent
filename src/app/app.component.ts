@@ -1,19 +1,18 @@
-import { Component, OnInit, Signal, WritableSignal, inject } from '@angular/core';
-import { ActivatedRoute, Data, NavigationEnd, Router, RouterOutlet, TitleStrategy } from '@angular/router';
+import { Component, Signal, effect, inject } from '@angular/core';
+import { RouterOutlet,  } from '@angular/router';
 import { PanelModule } from 'primeng/panel';
-import { CardModule } from 'primeng/card';
 import { register } from 'swiper/element/bundle';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { AppService } from './shared/services/app.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { IDataUrl } from './shared/interfaces/data-url.interface';
-import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
+import { ToastModule } from 'primeng/toast';
+import { IInfosToast } from './shared/interfaces/info-toast.interface';
+import { DisableToast } from './core/stores/global/global.action';
 
 register();
 
@@ -23,19 +22,22 @@ register();
   imports: [
     RouterOutlet,
     CommonModule,
+    ToastModule,
     PanelModule,
     ToolbarModule,
     ButtonModule,
     SidebarModule,
     TabMenuModule,
   ],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   private store = inject(Store)
-  private route: ActivatedRoute = inject(ActivatedRoute)
+  private msgToast = inject(MessageService)
+
   sidebarVisible: boolean = false;
   items: MenuItem[] | undefined = [
     { label: 'Calendar', icon: 'pi pi-fw pi-calendar', url: 'calendar' },
@@ -44,10 +46,24 @@ export class AppComponent implements OnInit {
     { label: 'Settings', icon: 'pi pi-fw pi-cog', url: 'settings' },
   ];
 
+  // toast manager
+  dataToast: Signal<IInfosToast> = toSignal(this.store.select(store => store.global.dataToast))
+  toastEnabled: Signal<boolean> = toSignal(this.store.select(store => store.global.toastEnabled))
+  enableToastEffect = effect(() => {
+    console.log('enable toast change: ', this.toastEnabled());
+    this.manageToast()
+  }, { allowSignalWrites: true });
+
   titlePage: Signal<string> = toSignal(this.store.select(store => store.global.titlePage), { initialValue: '' })
 
-  ngOnInit(): void {
 
+  private manageToast() {
+    if(this.toastEnabled()) {
+      // call
+      this.msgToast.add(this.dataToast())
+      // disable
+      this.store.dispatch(new DisableToast())
+    }
   }
 
 }

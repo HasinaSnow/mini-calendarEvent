@@ -12,6 +12,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
+import { EnableToast } from 'src/app/core/stores/global/global.action';
 
 @Component({
   selector: 'app-event-form',
@@ -68,7 +69,8 @@ export class EventFormComponent implements OnInit {
     this.form.markAllAsTouched()
     if(!this.form.valid) {
       console.log('form invalid')
-      return 
+      this.store.dispatch(new EnableToast({ key: 'tc', severity: 'error', summary: 'error', detail: 'Error! please verified the fields' }))
+      return
     }
     else {
       const newEvent =  this.buildNewEvent(this.form)

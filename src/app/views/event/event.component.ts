@@ -11,12 +11,11 @@ import { DialogModule } from 'primeng/dialog';
 import { CalendarEventComponent } from '../calendar/components/calendar-event/calendar-event.component';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { Observable } from 'rxjs';
-import { IDataUrl } from 'src/app/shared/interfaces/data-url.interface';
+import { DeleteEvent } from 'src/app/core/stores/event/event.action';
 
 @Component({
   selector: 'app-event',
@@ -39,7 +38,6 @@ import { IDataUrl } from 'src/app/shared/interfaces/data-url.interface';
 export class EventComponent implements OnInit {
   private store = inject(Store);
   private route = inject(Router)
-  private msgToast = inject(MessageService)
   private confirmationService = inject(ConfirmationService)
   
   isVisibleCalendarDialog: boolean = false
@@ -71,8 +69,6 @@ export class EventComponent implements OnInit {
   }
 
   onCreate() {
-    // on uilise le store
-    console.log('navigate on event-new')
     this.route.navigate(['event/new'])
   }
 
@@ -88,16 +84,27 @@ export class EventComponent implements OnInit {
 
   comandOnEventDelete() {
     this.closeEventOptionsDialog()
-    this.confirm()
+    // this.store.dispatch(new confirmaTionDialog({}))
+    this.store.dispatch(new DeleteEvent(this.eventIdClicked))
+    // this.store.dispatch(new ConfirmationDialog({}))
+      // console.log('confirm true')
+      // this.store.dispatch(new DeleteEvent(this.eventIdClicked))
   }
 
-  confirm() {
+  private confirmation(): boolean {
+    let confirmed: boolean = true
     this.confirmationService.confirm({
-        accept: () => {
-          this.msgToast.add({ key: 'tc', severity: 'success', summary: 'success', detail: 'Event deleted' })
-        }
+      accept: () => { 
+        console.log('delete confirmed') 
+        confirmed = true
+      },
+      reject: () => {
+        console.log('delete not confirmed')
+        confirmed = false
+      }
     });
-}
+    return confirmed
+  }
 
   onEventClicked(eventId: number) {
     this.eventIdClicked = eventId

@@ -24,7 +24,6 @@ export class EventNewComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(state => state.calendar.fullDateSelected).subscribe(date => this.dateSelected = date)
     this.initialValues = { ...INITIAL_EVENT_VALUE, date: this.dateSelected }
-    console.log(this.initialValues)
   }
 
   onSubmit(newEvent: IEvent) {
@@ -34,7 +33,6 @@ export class EventNewComponent implements OnInit {
   }
 
   onReset() {
-    // this.form.reset()
     console.log('reseted')
   }
 
