@@ -104,12 +104,14 @@ export class EventState {
     private newEventAdded(ctx: StateContext<EventStateModel>, event: IEvent) {
         this.store.dispatch(new EnableToast({ key: 'tc', severity: 'success', summary: 'success', detail: 'New Event successfully added' }))
         const events = ctx.getState().allEvents
+        console.log('events =>', events)
         const newEvents = [ ...events, event]
+        console.log('new events =>', newEvents)
         return ctx.patchState({ allEvents: newEvents })
     }
 
     private eventNotAdded() {
-        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'danger', summary: 'danger', detail: 'Error! There is a problem to add Event' }))
+        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'warn', summary: 'warn', detail: 'Error! There is a problem to add Event' }))
     }
 
     private eventEdited(ctx: StateContext<EventStateModel>, events: IEvent[]) {
@@ -118,7 +120,7 @@ export class EventState {
     }
 
     private eventNotEdited() {
-        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'danger', summary: 'danger', detail: 'Error! There is a problem to edit Event' }))
+        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'warn', summary: 'warn', detail: 'Error! There is a problem to edit Event' }))
     }
 
     private eventDeleted(ctx: StateContext<EventStateModel>, events : IEvent[]) {
