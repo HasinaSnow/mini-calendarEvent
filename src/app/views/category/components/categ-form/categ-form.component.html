@@ -1,0 +1,54 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div style="height: 547px;" class="grid m-auto md:h-30rem overflow-y-auto text-lg w-full">
+        <!-- name -->
+        <div class="col-12 md:col-6">
+            <div class="p-card p-3">
+                <label for="name" class="block mb-2">
+                    <span class="text-lg text-400">Name : </span>
+                </label>
+                <input style="font-family: var(--font-family); font-size: 1rem;" id="name" type="text" pInputText [placeholder]="'Enter the name of Category'" formControlName="name" class="w-full"/>
+                <div class="error-container text-sm h-2rem">
+                    <span *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['required']" class="ml-2 text-red-500">A name is required*</span>
+                    <span *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['minlength']" class="ml-2 text-red-500">This field must contain at least 3 characters*</span>
+                    <span *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['maxlength']" class="ml-2 text-red-500">This field must contain at most 20 characters*</span>
+                    <span *ngIf="form.controls['name'].errors?.['isNameExist']" class="ml-2 text-red-500">This name is already exist*</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- infos -->
+        <div class="col-12 md:col-6">
+            <div class="p-card p-3">
+                <label for="infos" class="block mb-2">
+                    <span class="text-lg text-400">Details (facultative) : </span>
+                </label>
+                <textarea id="infos" style="resize: none; font-family: var(--font-family); font-size: 1rem;" rows="5" cols="30" pInputText [placeholder]="'more details...'"  formControlName="infos" class="w-full"></textarea>
+                <div class="error-container text-sm h-2rem">
+                    <span *ngIf="form.controls['infos'].touched && form.controls['infos'].errors?.['maxlength']" class="ml-2 text-red-500">This field must contain at most 500 characters*</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- color picker -->
+        <div class="col-12 md:col-6">
+            <div class="p-card p-3">
+                <label for="color" class="block mb-2">
+                    <span class="text-lg text-400">Color picker : </span>
+                </label>
+                <p-colorPicker formControlName="color"></p-colorPicker>
+                <div class="error-container text-sm h-2rem">
+                    <span *ngIf="form.controls['color'].touched && form.controls['color'].errors?.['required']" class="ml-2 text-red-500">A color is required*</span>
+                    <span *ngIf="form.controls['color'].touched && form.controls['color'].errors?.['pattern']" class="ml-2 text-red-500">The secified color is not valid, it must be an Hexadecimal color*</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- buttons -->
+        <div class="col-12 md:col-12">
+            <div class="field flex gap-3 justify-content-end">
+                <p-button label="Reset" (click)="reset.emit()" [outlined]="true"></p-button>
+                <p-button (click)="onSubmit()" icon="pi pi-check" [severity]="'bg-pink-500'" label="Create"></p-button>
+            </div>
+        </div>
+    </div>
+</form>

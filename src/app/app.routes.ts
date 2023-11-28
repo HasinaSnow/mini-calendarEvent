@@ -63,6 +63,36 @@ export const routes: Routes = [
             loadComponent: () => import('./views/event/pages/event-edit/event-edit.component').then(m => m.EventEditComponent)
           }
         ]
+      },
+      {
+        path: 'category',
+        children: [
+          {
+            path: '',
+            title: 'Category',
+            resolve: {
+              setTitlePage : () => inject(Store).dispatch(new SetTitlePage('Category')),
+              getAllCategs : () => inject(Store).dispatch(new RetrieveAllCategs()),
+            },
+            loadComponent: () => import('./views/category/category.component').then(m => m.CategoryComponent)
+          },
+          {
+            path: 'new',
+            title: 'New Category',
+            resolve: {
+              setTitlePage : () => inject(Store).dispatch(new SetTitlePage('New Category')),
+            },
+            loadComponent: () => import('./views/category/pages/categ-new/categ-new.component').then(m => m.CategNewComponent)
+          },
+          {
+            path: 'edit/:id',
+            title: 'Category Edit',
+            resolve: {
+              setTitlePage : () => inject(Store).dispatch(new SetTitlePage('Edit Category')),
+            },
+            loadComponent: () => import('./views/category/pages/categ-edit/categ-edit.component').then(m => m.CategEditComponent)
+          }
+        ]
       }
     ]
   },

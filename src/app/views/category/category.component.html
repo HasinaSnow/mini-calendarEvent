@@ -1,1 +1,23 @@
-<p>category works!</p>
+<div class="relative w-full h-full">
+    <div class="absolute top-0 bottom-0 left-0 right-0 card flex flex-column overflow-y-auto p-2">
+        <p-divider align="left">
+            <div class="text-300 inline-flex align-items-center">
+                <i class="pi pi-user mr-2"></i>
+                <b>List of Categories : </b>
+            </div>
+        </p-divider>
+        <p-accordion>
+            <p-accordionTab *ngFor="let categ of categList()" [headerStyle]="{ 'color': categ.color , 'border-color' : categ.color }" header="{{ categ.name }}">
+                <p>{{ categ.infos }}</p>
+                <div class="flex gap-2 justify-content-start">
+                    <p-button size="small" severity="secondary" (click)="onEdit(categ.id)" label="Edit"></p-button>
+                    <p-button size="small" severity="danger" (click)="onDelete(categ.id)" label="Delete"></p-button>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+</div>
+
+    <button (click)="onCreate()" style="border-radius: 50%;" class="p-button border-none cursor-pointer absolute bottom-0 right-0 m-3 p-3 bg-pink-500">
+        <i class="pi pi-plus text-3xl "></i>
+    </button>

@@ -77,17 +77,17 @@ export class EventComponent implements OnInit {
     this.route.navigate(['event/new'])
   }
 
-  comandOnEventDetail() {
+  private comandOnEventDetail() {
     this.closeEventOptionsDialog()
     this.route.navigate(['event/detail', this.eventIdClicked])
   }
 
-  comandOnEventEdit() {
+  private comandOnEventEdit() {
     this.closeEventOptionsDialog()
     this.route.navigate(['event/edit', this.eventIdClicked])
   }
 
-  comandOnEventDelete() {
+  private comandOnEventDelete() {
     this.closeEventOptionsDialog()
     this.store.dispatch(new OpenDialogConfirmation(DATA_DIALOG_CONFIRM_DELETE_EVENT))
   }

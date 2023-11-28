@@ -33,13 +33,13 @@ export class Categorybuilder {
                 case 'Mariage': {
                     this.id = 0,
                     this.name = 'Mariage'
-                    this.color = 'gold'
+                    this.color = '#f1f1f1'
                     break;
                 }
                 case 'Baptême': {
                     this.id = 2,
                     this.name = 'Baptême'
-                    this.color = 'green'
+                    this.color = '#b2b2b2'
                     break;
                 }
             }
@@ -57,7 +57,7 @@ export class Categorybuilder {
 export class StubCategoryBuilder extends Categorybuilder {
     protected override id = 1
     protected override name = 'Mariage'
-    protected override color = 'yellow'
+    protected override color = '#f234'
     protected override infos = 'lorem ipsum'
     protected override createdAt = new Date()
 }

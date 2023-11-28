@@ -41,3 +41,8 @@ export class CloseDialogConfirmation {
     static readonly type: string = '[All Page] close didalog confirmation'
     constructor() {}
 }
+
+export class OpenDynamicDialog {
+    static readonly type: string = '[All Page] open didalog confirmation'
+    constructor(public dataDialog: IDataDialogConfirm) {}
+}

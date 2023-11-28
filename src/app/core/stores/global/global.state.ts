@@ -43,6 +43,7 @@ export class GlobalState {
     @Action(EnableToast)
     enableToast(ctx: StateContext<GlobalStateModel>, { infos } : EnableToast) {
         // update data toast
+        console.log('enble toast')
         return ctx.patchState({ dataToast: infos, toastEnabled: true })
     }
 

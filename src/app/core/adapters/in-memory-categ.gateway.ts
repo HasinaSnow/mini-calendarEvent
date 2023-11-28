@@ -20,4 +20,37 @@ export class InMemoryCategGateway extends CategGateway {
         const categ: ICategory|undefined = this.categs.find(categ => categ.id == id)
         return of(categ == undefined ? null : categ)
       }
+
+    override addNew(categ: ICategory): Observable<ICategory> {
+        const lastCateg = this.categs.pop()
+        if(lastCateg) {
+            this.categs = [ ...this.categs, lastCateg ]
+            categ.id = lastCateg.id + 1
+        } else
+            categ.id = 1
+
+        const NewCategs: ICategory[] = [ ...this.categs, categ ]
+        this.categs = NewCategs
+        return of(categ)
+    }
+
+    override edit(updatedCateg: ICategory): Observable<ICategory[] | null> {
+        const cat = this.categs.find(categ => categ.id == updatedCateg.id)
+        if(!cat) {
+            return of(null)
+        } else {
+            this.categs = this.categs.map(categ => categ.id == updatedCateg.id ? updatedCateg : categ)
+            return of(this.categs)
+        }
+    }
+    
+    override remove(id: number): Observable<ICategory[] | null> {
+        const cat = this.categs.find(categ => categ.id == id)
+        if(!cat) {
+            return of(null)
+        } else {
+            this.categs = this.categs.filter(categ => categ.id != id)
+            return of(this.categs)
+        }
+    }
 }

@@ -33,9 +33,9 @@ import { EnableToast } from 'src/app/core/stores/global/global.action';
 })
 export class EventFormComponent implements OnInit {
   private store: Store = inject(Store)
-  allCategs: Signal<IEventCategory[]> = toSignal(this.store.select(store => store.category.categories))
+  allCategs: Signal<IEventCategory[]> = toSignal(this.store.select(store => store.category.allCategs))
 
-  @Input() initialValues: IEventInitial
+  @Input({ required: true}) initialValues: IEventInitial
   @Output() submit: EventEmitter<IEvent> = new EventEmitter<IEvent>()
   @Output() reset: EventEmitter<void> = new EventEmitter<void>()
 

@@ -1,8 +1,5 @@
 <div class="p-1 flex flex-column justify-content-start gap-1 align-items-center w-screen h-screen surface-ground overflow-hidden">
 
-  <!-- msg toast -->
-  <p-toast [style]="{ width: '90vw' }" position="top-center" key="tc"></p-toast>
-
   <div class="card w-full">
     <p-toolbar styleClass="px-2 py-3 ">
       <div class="p-toolbar-group-start">
@@ -67,3 +64,11 @@
       </div>
   </ng-template>
 </p-confirmDialog>
+
+<!-- dialog menu -->
+<!-- <p-dialog [modal]="true" [position]="'bottom'" [showHeader]="false" [(visible)]="isVisibleEventOptionDialog" [style]="{ width: '95%' }" contentStyleClass="p-2 m-0">
+  <p-menu styleClass="w-full flex justify-content-center p-2 m-0" [model]="eventOptions"></p-menu>
+</p-dialog> -->
+
+ <!-- msg toast -->
+ <p-toast [style]="{ width: '90vw' }" position="top-center" key="tc"></p-toast>

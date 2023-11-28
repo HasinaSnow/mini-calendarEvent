@@ -10,21 +10,24 @@ export class AllRetrieved {
 
 }
 
-export class AddCategory {
-    static readonly type: string = '[Category Api] Add one Categ'
-    constructor(categ: ICategory) {}
-}
-
 export class RetrievOneCateg {
     static readonly type: string = '[Category Page] Retrieve  one categ'
-    constructor(public idEvent: number) {}
+    constructor(public idCateg: number) {}
 }
 
-export class OneCategRetrieved {
-    static readonly type: string = '[Category Api] One category retrieved'
-    constructor(public event: ICategory) {}
+export class AddCategory {
+    static readonly type: string = '[Category Api] Add one Categ'
+    constructor(public categ: ICategory) {}
 }
 
-export class CategNotRetrieved {
-    static readonly type: string = '[Categ Api] Categ not retrieved'
+export class EditCategory {
+    static readonly type: string = '[Category Api] Edit Categ'
+    constructor(public categ: ICategory) {}
 }
+
+export class DeleteCategory {
+    static readonly type: string = '[Category Api] Delete Categ'
+    constructor(public idCateg: number) {}
+}
+
+

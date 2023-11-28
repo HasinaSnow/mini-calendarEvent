@@ -5,6 +5,8 @@ import { AddNewEvent, DeleteEvent, EditEvent, RetrievAllEvents, RetrievOneEvent 
 import { EventGateway } from "../../ports/event.gateway";
 import { tap } from "rxjs";
 import { EnableToast, NotFoundRedirection } from "../global/global.action";
+import { ToastService } from "src/app/shared/services/toast.service";
+import { MSG_TOAST_EVENT_ADDED, MSG_TOAST_EVENT_EDITED, MSG_TOAST_EVENT_NOT_ADDED, MSG_TOAST_EVENT_NOT_EDITED, MSG_TOAST_EVENT_NOT_REMOVED, MSG_TOAST_EVENT_NOT_RETRIVED, MSG_TOAST_EVENT_REMOVED } from "src/app/shared/values/msg-toast.values";
 
 export interface EventStateModel {
     allEvents: IEvent[],   
@@ -21,7 +23,8 @@ export interface EventStateModel {
 @Injectable()
 export class EventState {
     private eventGateway = inject(EventGateway)
-    private store: Store = inject(Store)
+    // private store: Store = inject(Store)
+    private toastService = inject(ToastService)
 
     /************ GET ALL **************/
 
@@ -87,7 +90,7 @@ export class EventState {
     }
 
     // PRIVATE METHODS //
-    
+
     private allEventsRetrieved(ctx: StateContext<EventStateModel>, events: IEvent[]) {
         return ctx.patchState({ allEvents: events })
     }
@@ -97,12 +100,12 @@ export class EventState {
     }
 
      private eventNotRetrieved(ctx: StateContext<EventStateModel>) {
-        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'warn', summary: 'warn', detail: 'Event not retrieved' }))
+        this.toastService.infoMsg(MSG_TOAST_EVENT_NOT_RETRIVED)
         return ctx.dispatch(new NotFoundRedirection())
     }
 
     private newEventAdded(ctx: StateContext<EventStateModel>, event: IEvent) {
-        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'success', summary: 'success', detail: 'New Event successfully added' }))
+        this.toastService.successMsg(MSG_TOAST_EVENT_ADDED)
         const events = ctx.getState().allEvents
         console.log('events =>', events)
         const newEvents = [ ...events, event]
@@ -111,26 +114,26 @@ export class EventState {
     }
 
     private eventNotAdded() {
-        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'warn', summary: 'warn', detail: 'Error! There is a problem to add Event' }))
+        this.toastService.successMsg(MSG_TOAST_EVENT_NOT_ADDED)
     }
 
     private eventEdited(ctx: StateContext<EventStateModel>, events: IEvent[]) {
-        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'success', summary: 'success', detail: 'Event successfully edited' }))
+        this.toastService.successMsg(MSG_TOAST_EVENT_EDITED)
         return ctx.patchState({ allEvents: events })
     }
 
     private eventNotEdited() {
-        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'warn', summary: 'warn', detail: 'Error! There is a problem to edit Event' }))
+        this.toastService.warnMsg(MSG_TOAST_EVENT_NOT_EDITED)
+
     }
 
     private eventDeleted(ctx: StateContext<EventStateModel>, events : IEvent[]) {
-        console.log('event removed')
-        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'success', summary: 'success', detail: 'Event successfully removed' }))
+        this.toastService.successMsg(MSG_TOAST_EVENT_REMOVED)
         return ctx.patchState({ allEvents: events })
     }
 
     private eventNotDeleted() {
-        this.store.dispatch(new EnableToast({ key: 'tc', severity: 'danger', summary: 'danger', detail: 'Error! There is a problem to remove Event' }))
+        this.toastService.warnMsg(MSG_TOAST_EVENT_NOT_REMOVED)
     }
 
 }

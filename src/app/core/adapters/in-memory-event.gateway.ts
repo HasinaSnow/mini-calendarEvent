@@ -40,7 +40,6 @@ export class InMemoryEventGateway extends EventGateway {
     edit(updatedEvent: IEvent): Observable<IEvent[]|null>{
       const e = this.events.find(event => event.id == updatedEvent.id)
       if(!e) {
-        console.log('event updated not retrieved')
         return of(null)
       } else {
         this.events = this.events.map(event => event.id == updatedEvent.id ? updatedEvent : event)
@@ -51,11 +50,9 @@ export class InMemoryEventGateway extends EventGateway {
     remove(id: number): Observable<IEvent[] | null> {
       const e = this.events.find(event => event.id == id)
       if(!e) {
-        console.log('event removed not retrieved')
         return of(null)
       } else {
         this.events = this.events.filter(event => event.id != id)
-        console.log(this.events)
         return of(this.events)
       }
     }

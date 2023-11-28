@@ -5,7 +5,6 @@ import { Store } from '@ngxs/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditEvent, RetrievOneEvent } from 'src/app/core/stores/event/event.action';
 import { EventFormComponent } from '../../components/event-form/event-form.component';
-import { INITIAL_EVENT_VALUE } from 'src/app/shared/values/initial-event.values';
 
 @Component({
   selector: 'app-event-edit',
