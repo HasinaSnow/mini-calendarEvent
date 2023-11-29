@@ -36,6 +36,7 @@ export class CategFormComponent implements OnInit {
 
   // private store = inject(Store)
   @Input({ required: true }) initialValues: ICategInitial
+  @Input() submitBtn: string = 'Submit'
   @Output() submit: EventEmitter<ICategory> = new EventEmitter<ICategory>()
   @Output()reset: EventEmitter<void> = new EventEmitter<void>()
 

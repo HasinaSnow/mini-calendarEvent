@@ -16,3 +16,18 @@ export const DATA_DIALOG_CONFIRM_DELETE_EVENT: IDataDialogConfirm = {
         text: 'No'
     }
 }
+
+export const DATA_DIALOG_CONFIRM_DELETE_CATEG: IDataDialogConfirm = {
+    content: {
+        icon: 'pi pi-exclamation-triangle',
+        text: 'Do you confirm to delete this Category?'
+    },
+    btnAccept: {
+        icon: '',
+        text: 'Yes, I confirm'
+    },
+    btnReject: {
+        icon: 'pi pi-times',
+        text: 'No'
+    }
+}

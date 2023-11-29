@@ -47,7 +47,7 @@
         <div class="col-12 md:col-12">
             <div class="field flex gap-3 justify-content-end">
                 <p-button label="Reset" (click)="reset.emit()" [outlined]="true"></p-button>
-                <p-button (click)="onSubmit()" icon="pi pi-check" [severity]="'bg-pink-500'" label="Create"></p-button>
+                <p-button (click)="onSubmit()" icon="pi pi-check" [severity]="'bg-pink-500'" label="{{ submitBtn }}"></p-button>
             </div>
         </div>
     </div>

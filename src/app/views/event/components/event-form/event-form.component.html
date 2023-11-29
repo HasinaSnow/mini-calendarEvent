@@ -6,7 +6,7 @@
                 <label for="date" class="block mb-2">
                     <span class="text-lg text-400">Date event : </span>
                 </label>
-                <p-calendar id="date" formControlName="date" dateFormat="dd/mm/yy" [placeholder]="'Enter the date of the event'" styleClass="w-full" class="text-lg"></p-calendar>
+                <p-calendar [showIcon]="true" id="date" formControlName="date" dateFormat="dd/mm/yy" [placeholder]="'Enter the date of the event'" styleClass="w-full" class="text-lg"></p-calendar>
                 <div class="error-container text-sm h-2rem">
                     <span *ngIf="form.controls['date'].touched && form.controls['date'].errors?.['required']" class="ml-2 text-red-500">A valid date is required (dd/mm/yyyy)*</span>
                     <span *ngIf="form.controls['date'].touched && form.controls['date'].errors?.['isDate']" class="ml-2 text-red-500">A valid date is required (dd/mm/yyyy)*</span>
@@ -88,7 +88,7 @@
         <div class="col-12 md:col-12">
             <div class="field flex gap-3 justify-content-end">
                 <p-button label="Reset" (click)="reset.emit()" [outlined]="true"></p-button>
-                <p-button (click)="onSubmit()" icon="pi pi-check" [severity]="'bg-pink-500'" label="Submit"></p-button>
+                <p-button (click)="onSubmit()" icon="pi pi-check" [severity]="'bg-pink-500'" label="{{ submitBtn }}"></p-button>
             </div>
         </div>
     </div>

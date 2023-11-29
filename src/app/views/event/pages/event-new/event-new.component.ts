@@ -24,10 +24,12 @@ export class EventNewComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(state => state.calendar.fullDateSelected).subscribe(date => this.dateSelected = date)
     this.initialValues = { ...INITIAL_EVENT_VALUE, date: this.dateSelected }
+    console.log('full date selected =>', typeof this.dateSelected)
   }
 
   onSubmit(newEvent: IEvent) {
     console.log('form valid')
+    console.log('date=>', newEvent.date)
     this.store.dispatch(new AddNewEvent(newEvent))
     this.router.navigate(['/calendar'])
   }

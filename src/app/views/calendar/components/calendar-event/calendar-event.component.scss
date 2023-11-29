@@ -159,7 +159,8 @@
                         &.day-event {
                             overflow: visible;
                             position: relative;
-                            color: var(--clr-white);
+                            color: var(--surface-b);
+                            font-weight: 700;
                             z-index: 2;
 
                             &.active {
@@ -194,7 +195,7 @@
                                 font-size: .6em;
                                 padding: 6px;
                                 background: var(--clr-gradient-style-event);
-                                color: #000;
+                                color: var(--surface-b);
                                 border: 2px solid var(--clr-blue-empreinte);
                                 right: 2px;
                                 top: -8px;

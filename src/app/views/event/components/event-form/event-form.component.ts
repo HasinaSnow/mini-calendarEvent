@@ -36,6 +36,7 @@ export class EventFormComponent implements OnInit {
   allCategs: Signal<IEventCategory[]> = toSignal(this.store.select(store => store.category.allCategs))
 
   @Input({ required: true}) initialValues: IEventInitial
+  @Input() submitBtn: string = 'Submit'
   @Output() submit: EventEmitter<IEvent> = new EventEmitter<IEvent>()
   @Output() reset: EventEmitter<void> = new EventEmitter<void>()
 

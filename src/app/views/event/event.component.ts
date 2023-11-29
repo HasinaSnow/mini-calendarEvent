@@ -60,6 +60,7 @@ export class EventComponent implements OnInit {
     },
   ];
 
+  // manage dialog confirmation
   dialogConfirmationAccepted: Signal<boolean> = toSignal(this.store.select(store => store.global.dialogConfirmationAccepted))
   AcceptDialogConfirmEffect = effect(() => {
     console.log('dialog confirm accepted change: ', this.dialogConfirmationAccepted());

@@ -29,7 +29,10 @@ export class EventEditComponent implements OnInit {
       const id = params['id'];
       this.store.dispatch(new RetrievOneEvent(id))
     })
-    this.store.select(store => store.event.oneEvent).subscribe(event => this.initialValues = event)
+    this.store.select(store => store.event.oneEvent).subscribe((event: IEvent) => {
+      this.initialValues = event 
+      this.initialValues = { ...event, date: new Date(event.date) }
+    })
   }
 
   onSubmit(event: IEvent) {
