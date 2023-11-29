@@ -7,6 +7,7 @@ import { EventListComponent } from './components/event-list/event-list.component
 import { Store } from '@ngxs/store';
 import { CalendarSelectors } from 'src/app/core/stores/calendar/calendar.selectors';
 import { Router } from '@angular/router';
+import { EVENT_ROUTE } from 'src/app/shared/values/default-routes.values';
 
 @Component({
   selector: 'app-calendar',
@@ -29,7 +30,7 @@ export class CalendarComponent implements OnInit {
   }
 
   onClickDate() {
-    this.router.navigate(['/event'])
+    this.router.navigate([EVENT_ROUTE.path])
   }
 
 }

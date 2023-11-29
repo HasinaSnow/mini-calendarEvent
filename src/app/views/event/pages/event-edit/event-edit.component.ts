@@ -5,6 +5,7 @@ import { Store } from '@ngxs/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditEvent, RetrievOneEvent } from 'src/app/core/stores/event/event.action';
 import { EventFormComponent } from '../../components/event-form/event-form.component';
+import { EVENT_ROUTE } from 'src/app/shared/values/default-routes.values';
 
 @Component({
   selector: 'app-event-edit',
@@ -37,7 +38,7 @@ export class EventEditComponent implements OnInit {
 
   onSubmit(event: IEvent) {
     this.store.dispatch(new EditEvent(event))
-    this.router.navigate(['event'])
+    this.router.navigate([EVENT_ROUTE.path])
   }
 
   onReset() {

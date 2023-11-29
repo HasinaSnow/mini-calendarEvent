@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { OpenDialogConfirmation, RejectDialogConfirmation } from 'src/app/core/stores/global/global.action';
 import { DATA_DIALOG_CONFIRM_DELETE_CATEG } from 'src/app/shared/values/default-global.values';
 import { DeleteCategory } from 'src/app/core/stores/category/category.action';
+import { CATAEG_NEW_ROUTE, CATEG_EDIT_ROUTE, CATEG_ROUTE } from 'src/app/shared/values/default-routes.values';
 
 @Component({
   selector: 'app-category',
@@ -35,14 +36,14 @@ export class CategoryComponent {
   }, { allowSignalWrites: true });
 
   onCreate() {
-    this.router.navigate(['/category/new'])
+    this.router.navigate([CATEG_ROUTE.path + '/' + CATAEG_NEW_ROUTE.path])
   }
 
   onEdit(idCateg: number) {
     this.cateIdClicked = idCateg
-    this.router.navigate(['/category/edit', idCateg])
+    this.router.navigate([CATEG_ROUTE.path + '/' + CATEG_EDIT_ROUTE.path, idCateg])
   }
-  
+
   onDelete(categId: number) {
     // this.store.dispatch(new DeleteCategory(categId))
     this.cateIdClicked = categId

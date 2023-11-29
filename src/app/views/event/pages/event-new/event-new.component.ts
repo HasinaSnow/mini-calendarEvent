@@ -6,6 +6,7 @@ import { EventFormComponent } from '../../components/event-form/event-form.compo
 import { INITIAL_EVENT_VALUE } from 'src/app/shared/values/initial-event.values';
 import { AddNewEvent } from 'src/app/core/stores/event/event.action';
 import { Router } from '@angular/router';
+import { HOME_ROUTE } from 'src/app/shared/values/default-routes.values';
 
 @Component({
   selector: 'app-event-new',
@@ -31,7 +32,7 @@ export class EventNewComponent implements OnInit {
     console.log('form valid')
     console.log('date=>', newEvent.date)
     this.store.dispatch(new AddNewEvent(newEvent))
-    this.router.navigate(['/calendar'])
+    this.router.navigate([HOME_ROUTE.path])
   }
 
   onReset() {

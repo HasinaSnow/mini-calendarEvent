@@ -6,6 +6,7 @@ import { Store } from '@ngxs/store';
 import { INITIAL_CATEG_VALUE } from 'src/app/shared/values/initial-categ.values';
 import { AddCategory } from 'src/app/core/stores/category/category.action';
 import { Router } from '@angular/router';
+import { CATEG_ROUTE } from 'src/app/shared/values/default-routes.values';
 
 @Component({
   selector: 'app-categ-new',
@@ -27,7 +28,7 @@ export class CategNewComponent implements OnInit {
   onSubmit(categ: ICategory) {
     console.log('form valid')
     this.store.dispatch(new AddCategory(categ))
-    this.router.navigate(['/category'])
+    this.router.navigate([CATEG_ROUTE.path])
   }
 
   onReset() {

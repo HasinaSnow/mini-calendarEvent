@@ -1,5 +1,6 @@
 <div class="p-1 flex flex-column justify-content-start gap-1 align-items-center w-screen h-screen surface-ground overflow-hidden">
 
+  <!-- header -->
   <div class="card w-full">
     <p-toolbar styleClass="px-2 py-3 ">
       <div class="p-toolbar-group-start">
@@ -8,8 +9,6 @@
             <i class="pi pi-bars"></i>
           </span>
         </span>
-        <!-- <p-button (click)="sidebarVisible = true" [raised]="true" size="small" styleClass="p-1" icon="pi pi-bars"></p-button> -->
-        <!-- <i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"></i> -->
       </div>
       <div class="p-toolbar-group-end">
         <div class="p-card border-none mr-2">
@@ -19,11 +18,13 @@
     </p-toolbar>
   </div>
 
+  <!-- main -->
   <div style="color: var(--text-color)" class="w-full flex-grow-1">
     <router-outlet />
   </div>
 </div>
 
+<!-- sidebar -->
 <p-sidebar
   [(visible)]="sidebarVisible"
   styleClass="w-9 md:w-4"
@@ -46,7 +47,7 @@
     </div>
   </ng-template>
 
-  <ng-template pTemplate="footer">@copyright 2023 by Hasina Snow</ng-template>
+  <ng-template pTemplate="footer">@copyright 2023, Hasina Snow</ng-template>
 </p-sidebar>
 
 <!-- dialog confirmation -->

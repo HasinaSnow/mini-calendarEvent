@@ -2,12 +2,12 @@
     <div class="absolute top-0 bottom-0 left-0 right-0 card flex flex-column overflow-y-auto p-2">
         <p-divider align="left">
             <div class="text-300 inline-flex align-items-center">
-                <i class="pi pi-user mr-2"></i>
+                <i class="pi pi-align-justify mr-2"></i>
                 <b>List of Categories : </b>
             </div>
         </p-divider>
         <p-accordion>
-            <p-accordionTab *ngFor="let categ of categList()" [headerStyle]="{ 'color': categ.color , 'border-color' : categ.color }" header="{{ categ.name }}">
+            <p-accordionTab tabStyleClass="m-2" *ngFor="let categ of categList()" [headerStyle]="{ 'color': categ.color , 'border-color' : categ.color }" header="{{ categ.name }}">
                 <p>{{ categ.infos }}</p>
                 <div class="flex gap-2 justify-content-start">
                     <p-button size="small" severity="secondary" (click)="onEdit(categ.id)" label="Edit"></p-button>

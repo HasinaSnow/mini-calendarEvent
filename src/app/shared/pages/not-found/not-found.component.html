@@ -1,7 +1,8 @@
-<div class="flex-column justify-content-center align-items-center">
-    <p-card [style]="{ width: '100%' }">
-        <p-header styleClass="p-card-header">Page not found</p-header>
-        <p>The searching page is not exist.</p>
-        <button>Return to Home</button>
+<div class="w-full h-full p-2 ">
+    <p-card styleClass="w-full" header="404 Error :">
+        <p>The page you are trying to view does not exist.</p>
+        <ng-template pTemplate="footer">
+            <p-button styleClass="m-0 p-2" size="small" icon="pi pi-home" (click)="onRedirect()" label="Return to Home"></p-button>
+        </ng-template>
     </p-card>
 </div>

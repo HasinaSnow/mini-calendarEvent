@@ -4,6 +4,7 @@ import { AcceptDialogConfirmation, CloseDialogConfirmation, DisableToast, Enable
 import { Router } from "@angular/router";
 import { IInfosToast } from "src/app/shared/interfaces/info-toast.interface";
 import { IDataDialogConfirm } from "src/app/shared/interfaces/data-dialog-confirm.interface";
+import { NOT_FOUND_ROUTE } from "src/app/shared/values/default-routes.values";
 
 export interface GlobalStateModel {
     titlePage: string,
@@ -37,7 +38,7 @@ export class GlobalState {
     @Action(NotFoundRedirection)
     notFoundRedirection(ctx: StateContext<GlobalStateModel>) {
         console.log('event not found')
-        return this.router.navigate(['/**'])
+        return this.router.navigate([NOT_FOUND_ROUTE.path])
     }
 
     @Action(EnableToast)

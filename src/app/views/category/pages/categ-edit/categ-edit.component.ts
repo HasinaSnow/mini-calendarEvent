@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ICategInitial, ICategory } from 'src/app/core/models/category.model';
 import { EditCategory, RetrievOneCateg } from 'src/app/core/stores/category/category.action';
 import { CategFormComponent } from '../../components/categ-form/categ-form.component';
+import { CATEG_ROUTE } from 'src/app/shared/values/default-routes.values';
 
 @Component({
   selector: 'app-categ-edit',
@@ -30,7 +31,7 @@ export class CategEditComponent implements OnInit {
 
   onSubmit(categ: ICategory) {
     this.store.dispatch(new EditCategory(categ))
-    this.router.navigate(['category'])
+    this.router.navigate([CATEG_ROUTE.path])
   }
 
   onReset() {

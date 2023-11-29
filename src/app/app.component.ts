@@ -31,7 +31,7 @@ register();
     ToolbarModule,
     ButtonModule,
     SidebarModule,
-    TabMenuModule
+    TabMenuModule,
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './app.component.html',
@@ -48,9 +48,9 @@ export class AppComponent {
   sidebarVisible: boolean = false;
   items: MenuItem[] | undefined = [
     { label: 'Calendar', icon: 'pi pi-fw pi-calendar', url: 'calendar' },
-    { label: 'Event', icon: 'pi pi-fw pi-calendar', url: 'event' },
-    { label: 'Category', icon: 'pi pi-fw pi-pencil', url: 'category' },
-    { label: 'Settings', icon: 'pi pi-fw pi-cog', url: 'settings' },
+    { label: 'Event', icon: 'pi pi-fw pi-calendar-plus', url: 'event' },
+    { label: 'Category', icon: 'pi pi-fw pi-star', url: 'category' },
+    { label: 'About', icon: 'pi pi-fw pi-id-card', url: 'about' },
   ];
 
   // toast manager

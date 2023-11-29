@@ -17,6 +17,7 @@ import { ToastModule } from 'primeng/toast';
 import { DeleteEvent } from 'src/app/core/stores/event/event.action';
 import { DATA_DIALOG_CONFIRM_DELETE_EVENT } from 'src/app/shared/values/default-global.values';
 import { OpenDialogConfirmation, RejectDialogConfirmation } from 'src/app/core/stores/global/global.action';
+import { EVENT_DETAIL_ROUTE, EVENT_EDIT_ROUTE, EVENT_NEW_ROUTE, EVENT_ROUTE } from 'src/app/shared/values/default-routes.values';
 
 @Component({
   selector: 'app-event',
@@ -75,17 +76,17 @@ export class EventComponent implements OnInit {
   }
 
   onCreate() {
-    this.route.navigate(['event/new'])
+    this.route.navigate([EVENT_ROUTE.path + '/' + EVENT_NEW_ROUTE.path])
   }
 
   private comandOnEventDetail() {
     this.closeEventOptionsDialog()
-    this.route.navigate(['event/detail', this.eventIdClicked])
+    this.route.navigate([EVENT_ROUTE.path + '/' + EVENT_DETAIL_ROUTE.path, this.eventIdClicked])
   }
 
   private comandOnEventEdit() {
     this.closeEventOptionsDialog()
-    this.route.navigate(['event/edit', this.eventIdClicked])
+    this.route.navigate([EVENT_ROUTE.path + '/' + EVENT_EDIT_ROUTE.path, this.eventIdClicked])
   }
 
   private comandOnEventDelete() {
@@ -116,7 +117,6 @@ export class EventComponent implements OnInit {
 
   private manageDialogConfirm() {
     if(this.dialogConfirmationAccepted()) {
-      console.log('delete Event')
       this.store.dispatch(new DeleteEvent(this.eventIdClicked)) // call action
       this.store.dispatch(new RejectDialogConfirmation()) // disable
     }
