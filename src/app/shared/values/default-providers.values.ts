@@ -95,7 +95,7 @@ export const DEFAULT_IN_MEMORY_PROVIDERS = [
 export const DEFAULT_LOCAL_STORAGE_PROVIDERS = [
   {
     provide: CategGateway,
-    useValue: new LocalStorageCategoryGateway(),
+    useValue: new LocalStorageCategoryGateway().withCategs(defaultCategsValues),
   },
   {
     provide: EventGateway,
