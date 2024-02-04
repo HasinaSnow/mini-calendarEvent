@@ -110,7 +110,6 @@ export class CategoryState {
     }
 
     private categoryEdited(ctx: StateContext<CategoryStateModel>, categs: ICategory[]) {
-        console.log('categ edited')
         this.toastService.successMsg(MSG_TOAST_CATEG_EDITED)
         return ctx.patchState({ allCategs: categs })
     }

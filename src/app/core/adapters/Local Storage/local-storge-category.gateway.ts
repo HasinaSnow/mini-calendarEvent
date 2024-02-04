@@ -24,8 +24,6 @@ export class LocalStorageCategoryGateway extends CategGateway {
        const categs = this.getCategs()
        const lastId = this.getLastId()
        categ.id = lastId + 1
-       console.log('categs =>', categs)
-       console.log('categ.id =>', categ.id)
        this.updateCategs([ ...categs, categ])
        return of(categ)
     }

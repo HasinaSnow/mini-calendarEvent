@@ -69,7 +69,6 @@ export class EventFormComponent implements OnInit {
   onSubmit() {
     this.form.markAllAsTouched()
     if(!this.form.valid) {
-      console.log('form invalid')
       this.store.dispatch(new EnableToast({ key: 'tc', severity: 'error', summary: 'error', detail: 'Error! please verified the fields' }))
       return
     }

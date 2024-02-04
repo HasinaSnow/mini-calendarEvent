@@ -43,7 +43,6 @@ export class CategFormComponent implements OnInit {
   form: FormGroup
 
   ngOnInit(): void {
-    console.log(this.initialValues.color)
     this.form = new FormGroup({
       name: new FormControl<string|null>(this.initialValues.name, {
         validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)],

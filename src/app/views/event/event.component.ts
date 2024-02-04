@@ -2,7 +2,6 @@ import { Component, OnInit, Signal, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
-import { EventCardComponent } from '../calendar/components/event-card/event-card.component';
 import { Store } from '@ngxs/store';
 import { IEventCalendar, IEventCard } from 'src/app/core/models/event.model';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -18,6 +17,7 @@ import { DeleteEvent } from 'src/app/core/stores/event/event.action';
 import { DATA_DIALOG_CONFIRM_DELETE_EVENT } from 'src/app/shared/values/default-global.values';
 import { OpenDialogConfirmation, RejectDialogConfirmation } from 'src/app/core/stores/global/global.action';
 import { EVENT_DETAIL_ROUTE, EVENT_EDIT_ROUTE, EVENT_NEW_ROUTE, EVENT_ROUTE } from 'src/app/shared/values/default-routes.values';
+import { EventCardComponent } from './components/event-card/event-card.component';
 
 @Component({
   selector: 'app-event',
@@ -64,7 +64,6 @@ export class EventComponent implements OnInit {
   // manage dialog confirmation
   dialogConfirmationAccepted: Signal<boolean> = toSignal(this.store.select(store => store.global.dialogConfirmationAccepted))
   AcceptDialogConfirmEffect = effect(() => {
-    console.log('dialog confirm accepted change: ', this.dialogConfirmationAccepted());
     this.manageDialogConfirm()
   }, { allowSignalWrites: true });
 

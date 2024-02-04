@@ -37,14 +37,12 @@ export class GlobalState {
 
     @Action(NotFoundRedirection)
     notFoundRedirection(ctx: StateContext<GlobalStateModel>) {
-        console.log('event not found')
         return this.router.navigate([NOT_FOUND_ROUTE.path])
     }
 
     @Action(EnableToast)
     enableToast(ctx: StateContext<GlobalStateModel>, { infos } : EnableToast) {
         // update data toast
-        console.log('enble toast')
         return ctx.patchState({ dataToast: infos, toastEnabled: true })
     }
 
@@ -66,7 +64,6 @@ export class GlobalState {
 
     @Action(AcceptDialogConfirmation)
     acceptDialogConfirmation(ctx: StateContext<GlobalStateModel>) {
-        console.log('dialog accepted')
         return ctx.patchState({ dialogConfirmationAccepted: true })
     }
 

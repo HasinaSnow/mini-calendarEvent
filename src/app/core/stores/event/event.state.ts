@@ -32,7 +32,6 @@ export class EventState {
     retrievAllEvents(ctx: StateContext<EventStateModel>) {
         return this.eventGateway.retrieveAll().pipe(
             tap(events => {
-                console.log(events)
                 return this.allEventsRetrieved(ctx, events)
             })
         )
@@ -107,9 +106,7 @@ export class EventState {
     private newEventAdded(ctx: StateContext<EventStateModel>, event: IEvent) {
         this.toastService.successMsg(MSG_TOAST_EVENT_ADDED)
         const events = ctx.getState().allEvents
-        console.log('events =>', events)
         const newEvents = [ ...events, event]
-        console.log('new events =>', newEvents)
         return ctx.patchState({ allEvents: newEvents })
     }
 

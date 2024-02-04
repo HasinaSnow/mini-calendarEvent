@@ -3,7 +3,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { CalendarEventComponent } from './components/calendar-event/calendar-event.component';
 import { IEventCalendar, IEventCard } from 'src/app/core/models/event.model';
-import { EventListComponent } from './components/event-list/event-list.component';
 import { Store } from '@ngxs/store';
 import { CalendarSelectors } from 'src/app/core/stores/calendar/calendar.selectors';
 import { Router } from '@angular/router';
@@ -12,7 +11,7 @@ import { EVENT_ROUTE } from 'src/app/shared/values/default-routes.values';
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [CommonModule, CalendarEventComponent, EventListComponent],
+  imports: [CommonModule, CalendarEventComponent],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })

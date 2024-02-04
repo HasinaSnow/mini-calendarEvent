@@ -26,7 +26,6 @@ export class CategNewComponent implements OnInit {
   }
 
   onSubmit(categ: ICategory) {
-    console.log('form valid')
     this.store.dispatch(new AddCategory(categ))
     this.router.navigate([CATEG_ROUTE.path])
   }

@@ -41,10 +41,6 @@ export class CalendarEventComponent {
   ngOnInit() {
   }
 
-  log(){
-    console.log('next slide')
-  }
-
   onNextMonth() : void {
     this.store.dispatch(new MonthToIncremented())
   }

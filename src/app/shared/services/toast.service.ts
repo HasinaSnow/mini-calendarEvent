@@ -17,7 +17,6 @@ export class ToastService {
     }
 
     successMsg(msg: string) {
-        console.log('success msg')
         this.store.dispatch(new EnableToast({ key: 'tc', severity: 'success', summary: 'success', detail: msg }))
     }
 

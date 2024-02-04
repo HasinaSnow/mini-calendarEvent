@@ -52,7 +52,6 @@ export class CategoryComponent {
 
   manageDialogConfirm() {
     if(this.dialogConfirmationAccepted()) {
-      console.log('delete Event')
       this.store.dispatch(new DeleteCategory(this.cateIdClicked)) // call action
       this.store.dispatch(new RejectDialogConfirmation()) // disable
     }
