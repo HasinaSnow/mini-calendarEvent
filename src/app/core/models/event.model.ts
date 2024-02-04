@@ -69,5 +69,5 @@ export interface IEventCalendar {
 }
 
 export interface IEventBuildParam {
-    categName?: 'Mariage'|'Baptême',
+    categName?: 'Mariage'|'Baptême'| 'Sortie de promotion'| 'Fiançaille'
 }

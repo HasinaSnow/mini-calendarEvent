@@ -9,6 +9,8 @@ import { IEvent } from 'src/app/core/models/event.model';
 import { CategGateway } from 'src/app/core/ports/categ.gateway';
 import { EventGateway } from 'src/app/core/ports/event.gateway';
 
+const DATE_REF = new Date()
+
 const defaultCategsValues: ICategory[] = [
   new StubCategoryBuilder()
     .withId(1)
@@ -24,7 +26,7 @@ const defaultCategsValues: ICategory[] = [
     .build(),
   new StubCategoryBuilder()
     .withId(3)
-    .withName('Sortie de promition')
+    .withName('Sortie de promotion')
     .withColor('#323232')
     .withInfos('lorem sortie de promotion ...')
     .build(),
@@ -39,28 +41,44 @@ const defaultCategsValues: ICategory[] = [
 const defaultEventsValues: IEvent[] = [
   new StubEventBuilder()
     .withId(1)
+    .withDate(new Date(DATE_REF.getFullYear(), DATE_REF.getMonth(), 12))
     .withConfirmed()
     .build({ categName: 'Mariage' }),
   new StubEventBuilder()
     .withId(2)
+    .withDate(new Date(DATE_REF.getFullYear(), DATE_REF.getMonth(), 12))
     .withUnConfirmed()
     .build({ categName: 'Baptême' }),
   new StubEventBuilder()
     .withId(3)
+    .withDate(new Date(DATE_REF.getFullYear(), DATE_REF.getMonth(), 22))
     .withConfirmed()
     .build({ categName: 'Mariage' }),
   new StubEventBuilder()
     .withId(4)
+    .withDate(new Date(DATE_REF.getFullYear(), DATE_REF.getMonth(), 24))
     .withConfirmed()
-    .build({ categName: 'Mariage' }),
+    .build({ categName: 'Fiançaille' }),
   new StubEventBuilder()
     .withId(5)
+    .withDate(new Date(DATE_REF.getFullYear(), DATE_REF.getMonth(), 24))
     .withUnConfirmed()
     .build({ categName: 'Baptême' }),
   new StubEventBuilder()
     .withId(6)
+    .withDate(new Date(DATE_REF.getFullYear(), DATE_REF.getMonth(), 24))
     .withConfirmed()
-    .build({ categName: 'Mariage' }),
+    .build({ categName: 'Sortie de promotion' }),
+    new StubEventBuilder()
+    .withId(6)
+    .withDate(new Date(DATE_REF.getFullYear(), DATE_REF.getMonth(), 28))
+    .withConfirmed()
+    .build({ categName: 'Fiançaille' }),
+  new StubEventBuilder()
+    .withId(6)
+    .withDate(new Date(DATE_REF.getFullYear(), DATE_REF.getMonth() + 1, 24))
+    .withConfirmed()
+    .build({ categName: 'Fiançaille' }),
 ]
 
 export const DEFAULT_IN_MEMORY_PROVIDERS = [
@@ -81,6 +99,6 @@ export const DEFAULT_LOCAL_STORAGE_PROVIDERS = [
   },
   {
     provide: EventGateway,
-    useValue: new LocalStorageEventGateway()
+    useValue: new LocalStorageEventGateway().withEvents(defaultEventsValues)
   }
 ]

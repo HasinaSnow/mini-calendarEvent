@@ -27,19 +27,31 @@ export class Categorybuilder {
         return this
     }
 
-    build(categName: 'Mariage'|'Baptême'|undefined = undefined): ICategory {
+    build(categName: 'Mariage'|'Baptême'| 'Sortie de promotion'| 'Fiançaille' | undefined = undefined): ICategory {
         if(categName)
             switch (categName) {
                 case 'Mariage': {
                     this.id = 0,
                     this.name = 'Mariage'
-                    this.color = '#f1f1f1'
+                    this.color = '#c71879'
                     break;
                 }
                 case 'Baptême': {
-                    this.id = 2,
+                    this.id = 1,
                     this.name = 'Baptême'
-                    this.color = '#b2b2b2'
+                    this.color = '#bf770b'
+                    break;
+                }
+                case 'Sortie de promotion': {
+                    this.id = 2,
+                    this.name = 'Sortie de promotion'
+                    this.color = '#17cfa4'
+                    break;
+                }
+                case 'Fiançaille': {
+                    this.id = 3,
+                    this.name = 'Fiançaille'
+                    this.color = '#7abd10'
                     break;
                 }
             }
